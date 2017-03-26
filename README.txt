@@ -1,1 +1,1 @@
-This JavaScript Shopping Cart project is 'DECOUPLED', which means it only has the logic to run all the functions and operations, you need to couple it up with HTML
+This JavaScript Shopping Cart project is 'DECOUPLED', which means it only has the logic to run all the functions and operations, you need to couple it up with HTML. Also, it is not finished project but project that i'm working on and any comments, ideas or help are all welcome. Happy coding folks. Peace 

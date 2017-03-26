@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-3.1.1.js"></script>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+</head>
+
+<body>
+
+    <header>
+        <h1 id="pageTitle">MY SHOPPING CART</h1>
+    </header>
+
+<div class="listed-items">
+    <ul>
+        <li><a class="add-to-cart" href="#" data-name="E30M3" data-price="10000">BMW E30 M3 €10.000</a></li>
+        <li><a class="add-to-cart" href="#" data-name="quattroUR" data-price="7000">Audi UR Quattro €7000</a></li>
+        <li><a class="add-to-cart" href="#" data-name="E34M5" data-price="5000">BMW E34 M5 €5000</a></li>
+        <li><a class="add-to-cart" href="#" data-name="S12Silvia" data-price="3000">Nissan Silvia S12 Turbo €3000</a></li>
+        <li><a class="add-to-cart" href="#" data-name="E327series" data-price="2500">BMW E32 740i €2500</a></li>
+    </ul>
+    <button id="clear-cart">Clear Cart</button>
+</div>
+
+
+<div>
+    <ul id="show-cart">
+        <!-- -->
+    </ul>
+</div>
+
+
+    <script>
+        
+        $(".add-to-cart").click(function(event){
+            event.preventDefault();     // Prevents link from doing what it normally does
+            var name = $(this).attr("data-name");  //this-whichever is clicked.attr-accesses the attribute
+            var price = Number($(this).attr("data-price"));
+            
+            addItemToCart(name, price, 1);
+            displayCart();
+            
+        });
+        
+        function displayCart() {
+            var cartArray = listCart();
+            var output = "";
+            for (var i in cartArray) {
+                output += "<li>"+cartArray[i].name+" "+cartArray[i].count+"</li>";
+            }
+            $("#show-cart").html(output);
+        }
+        
+        
+        // **********************************************************
+        // Shopping Cart Functions
+        
+        var cart = [];
+        var Item = function(name, price, count) {
+            this.name = name
+            this.price = price
+            this.count = count
+        };
+
+
+
+        // adds items to cart
+
+        function addItemToCart(name, price, count) {
+            for (var i in cart) {
+                if (cart[i].name === name) {
+                    cart[i].count += count;
+                    return;
+                }
+            }
+
+            var item = new Item(name, price, count);
+            cart.push(item);
+            saveCart();
+        }
+
+
+
+
+        // Removes one item from the cart
+
+        function removeItemFromCart(name) {
+            for (var i in cart) {
+                if (cart[i].name === name) { // "3" === 3 false / "3" == 3 true
+                    cart[i].count--;
+                    if (cart[i].count === 0) { // If remaining item count is at 0
+                        cart.splice(i, 1); // splice adds & removes items off the array
+                    }
+                    break;
+                }
+            }
+            saveCart();
+
+        }
+
+
+
+
+        // Removes all ites from the cart
+
+        function removeItemFromCartAll(name) {
+            for (var i in cart) {
+                if (cart[i].name === name) {
+                    cart.splice(i, 1);
+                    break;
+                }
+            }
+            saveCart();
+
+        }
+
+
+        // clear whole cart
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+
+        }
+
+
+        // Return total of items in the cart
+
+
+        function countCart() {
+            var totalCount = 0;
+            for (var i in cart) {
+                totalCount += cart[i].count;
+            }
+
+            return totalCount;
+        }
+
+
+        // Total cost
+
+
+        function totalCart() {
+            var totalCost = 0;
+            for (var i in cart) {
+                totalCost += cart[i].price;
+            }
+            return totalCost;
+        }
+
+
+        // Display the cart on the page
+
+        function listCart() { // Will return the array
+            var cartCopy = [];
+            for (var i in cart) {
+                var item = cart[i];
+                var itemCopy = {};
+                for (var property in item) {
+                    itemCopy[property] = item[property];
+
+                }
+                cartCopy.push(itemCopy);
+            }
+            return cartCopy;
+        }
+
+
+
+        // Save the Cart to local storage (if u leave page and come bact to it)
+        // Use same cart on a different page
+        
+        function saveCart() {
+            localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        }
+        
+        
+        // Load previously saved cart
+       
+        function loadCart() {
+            cart = JSON.parse(localStorage.getItem("shoppingCart"));
+        }
+        
+        loadCart();
+        
+        var array = listCart();
+        
+        console.log(array);   // List everything in the cart
+
+
+
+
+
+
+        /* 
+        
+        ----------TESTS----------
+
+        removeItemFromCart("Apple");
+
+        removeItemFromCartAll("Kiwi");
+
+        console.log("There are " + cart.length + " different products in your cart");
+        console.log(cart);
+
+    
+        console.log("There are " + countCart() + " items in your cart");
+
+        console.log("The total cost is " + totalCart() + " Euros");
+
+        console.log(listCart()); // List contents of cart
+
+        localStorage.setItem("username", "Joe");  //Stored@Console>Application>Local Storage
+        localStorage.setItem("age", 33);
+        
+        */
+        
+ 
+        
+        
+        
+        
+        
+        
+
+    </script>
+</body>
+
+</html>

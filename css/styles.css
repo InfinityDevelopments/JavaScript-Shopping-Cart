@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* ----- FONTS ----- */
+
+
+
+/* ----- MAIN STYLING ----- */
+
+header {
+    height: 10vh;
+    border-bottom: 3px solid sandybrown;
+    background-color: blanchedalmond;
+    position: relative;
+}
+
+#pageTitle {
+    padding: 15px;
+    color: olive;
+    display: inline-block;
+    position: absolute;
+    top: 2vh;
+}
+
+body {
+    background-color: oldlace;
+}
+
+.listed-items {
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.listed-items ul {
+    list-style: none;
+    
+}

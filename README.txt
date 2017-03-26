@@ -1,0 +1,1 @@
+This JavaScript Shopping Cart project is 'DECOUPLED', which means it only has the logic to run all the functions and operations, you need to couple it up with HTML
